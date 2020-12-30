@@ -36,10 +36,10 @@
 <body>
 <div class="table-container">
     <div class="title">
-        <h3>Księga komentarzy</h3>
+        <h3>Chose dashboard:</h3>
     </div>
     @auth
-        <table data-toggle="table">
+        <table data-toggle="table" id="dashboardsTable">
             <thead>
             <tr>
                 <th>#</th>
@@ -50,7 +50,7 @@
             </thead>
             <tbody>
             @foreach($dashboards as $dashboard)
-                <tr>
+                <tr id={{$dashboard->id}}>
                     <td>{{$dashboard->id}}</td>
                     <td>{{$dashboard->user->name}}</td>
                     <td>{{$dashboard->created_at}}</td>
@@ -61,6 +61,21 @@
         </table>
         <br>
 
+        <form role="form"  action="{{ route('dashboardChoseStore') }}"
+              method="post" enctype="multipart/form-data" >
+            {{ csrf_field() }}
+
+            <input type="number" id="dashboard_id"  name="dashboard_id">
+           <button type="submit">Utwórz</button>
+
+        </form>
+ <script>
+     $(document).ready(function() {
+         $('#dashboardsTable').find("tr").on("click", function () {
+
+         });
+     });
+ </script>
     @endauth
 </div>
 

@@ -29,8 +29,8 @@ class DashboardController extends Controller
      */
     public function create()
     {
-      $dashboard=new Dashboard();
-      return view("dashboardForm" , compact("dashboard"));
+        $dashboard=new Dashboard();
+        return view("dashboardForm" , compact("dashboard"));
 
     }
 
@@ -42,12 +42,12 @@ class DashboardController extends Controller
      */
     public function store(DashboardRequest $request)
     {
-       if (\Auth::user()==null)
-       {
-           return view("home");
-       }
-       $dashboard=new Dashboard();
-       $dashboard->user_id= \Auth::user()->id;
+        if (\Auth::user()==null)
+        {
+            return view("home");
+        }
+        $dashboard=new Dashboard();
+        $dashboard->user_id= \Auth::user()->id;
         $dashboard->name=$request->name;
         if ($dashboard->save())
         {

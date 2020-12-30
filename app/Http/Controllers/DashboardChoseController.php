@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DashboardChoseRequest;
 use App\Http\Requests\DashboardRequest;
 use App\Models\Dashboard;
+use App\Models\UserToPrimaryDashboard;
 use Illuminate\Http\Request;
 
 class DashboardChoseController extends Controller
@@ -26,8 +28,7 @@ class DashboardChoseController extends Controller
      */
     public function create()
     {
-        $dashboard=new Dashboard();
-        return view("dashboardForm" , compact("dashboard"));
+
 
     }
 
@@ -37,16 +38,16 @@ class DashboardChoseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DashboardRequest $request)
+    public function store(DashboardChoseRequest $request)
     {
         if (\Auth::user()==null)
         {
             return view("home");
         }
-        $dashboard=new Dashboard();
-        $dashboard->user_id= \Auth::user()->id;
-        $dashboard->name=$request->name;
-        if ($dashboard->save())
+        $userToPrimaryDashboard=new UserToPrimaryDashboard();
+        $userToPrimaryDashboard->user_id= \Auth::user()->id;
+        $userToPrimaryDashboard->dashboard_id=$request->dashboard_id;
+        if ($userToPrimaryDashboard->save())
         {
             return redirect()->route("dashboard");
         }

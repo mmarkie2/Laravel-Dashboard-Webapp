@@ -13,15 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', "App\Http\Controllers\DashboardController@index") ->name('dashboard');;
-Route::get("/dashboard","App\Http\Controllers\DashboardController@index");
 
 Route::get("/dashboard/create","App\Http\Controllers\DashboardController@create")
     ->name('dashboardCreate');
 Route::post("/dashboard/create","App\Http\Controllers\DashboardController@store")
     ->name('dashboardStore');
-//Route::post("/dashboard/chose","App\Http\Controllers\DashboardController@chose")
-  //  ->name('dashboardChose');
+Route::get("/dashboard","App\Http\Controllers\DashboardController@index");
+
+
+
+Route::get("/dashboard/chose","App\Http\Controllers\DashboardChoseController@index")
+    ->name('dashboardChose');
+
+Route::post("/dashboard/chose","App\Http\Controllers\DashboardChoseController@store")
+    ->name('dashboardChoseStore');
+
 
 Auth::routes();
 

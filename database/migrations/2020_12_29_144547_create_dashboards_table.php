@@ -15,10 +15,10 @@ class CreateDashboardsTable extends Migration
     {
         Schema::create('dashboards', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("user_id")->unsigned()->nullable(false)->change();
+            $table->bigInteger("user_id")->unsigned()->nullable(false);
             $table->foreign("user_id")->references("id")->on("users")
                 ->onUpdate("cascade")->onDelete("cascade");
-            $table->text("name")->nullable(false)->change();;
+            $table->text("name")->nullable(false);;
 
 
             $table->timestamps();
