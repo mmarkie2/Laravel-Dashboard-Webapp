@@ -25,9 +25,10 @@ Route::get("/dashboard","App\Http\Controllers\DashboardController@index");
 
 
 
+
+
 Route::get("/dashboard/chose","App\Http\Controllers\DashboardChoseController@index")
     ->name('dashboardChose');
-
 Route::post("/dashboard/chose","App\Http\Controllers\DashboardChoseController@store")
     ->name('dashboardChoseStore');
 

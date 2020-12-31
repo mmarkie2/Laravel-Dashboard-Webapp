@@ -7,6 +7,7 @@ use App\Http\Requests\DashboardRequest;
 use App\Models\Dashboard;
 use App\Models\UserToPrimaryDashboard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardChoseController extends Controller
 {
@@ -44,14 +45,28 @@ class DashboardChoseController extends Controller
         {
             return view("home");
         }
-        $userToPrimaryDashboard=new UserToPrimaryDashboard();
-        $userToPrimaryDashboard->user_id= \Auth::user()->id;
-        $userToPrimaryDashboard->dashboard_id=$request->dashboard_id;
-        if ($userToPrimaryDashboard->save())
+        $querry=DB::table('user_to_primary_dashboards')
+            ->where('user_id', '=',  \Auth::user()->id)->get();
+        if( $querry->isEmpty())
         {
-            return redirect()->route("dashboard");
+            $userToPrimaryDashboard=new UserToPrimaryDashboard();
+            $userToPrimaryDashboard->user_id= \Auth::user()->id;
+            $userToPrimaryDashboard->dashboard_id=$request->dashboard_id;
+            if ($userToPrimaryDashboard->save())
+            {
+                return redirect()->route("dashboard");
+            }
+            else{
+                return "error";
+            }
         }
-        return "error";
+        else
+        {
+           $id= $querry[0]->id;
+          $this-> update($request,$id);
+        }
+
+
     }
 
 
@@ -74,7 +89,8 @@ class DashboardChoseController extends Controller
      */
     public function edit($id)
     {
-        //
+
+
     }
 
     /**
@@ -84,9 +100,26 @@ class DashboardChoseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DashboardChoseRequest $request, $id)
     {
-        //
+        $userToPrimaryDashboard= UserToPrimaryDashboard::find($id);
+        if(   $userToPrimaryDashboard->user_id== \Auth::user()->id )
+
+        {
+            $userToPrimaryDashboard->dashboard_id=$request->dashboard_id;
+            if ($userToPrimaryDashboard->save())
+            {
+                return redirect()->route("dashboard");
+            }
+            else{
+                return "error";
+            }
+
+        }
+        else{
+            return back()->with(['success' => false, 'message_type' => 'danger',
+                'message' => 'You are not authorized.']);
+        }
     }
 
     /**

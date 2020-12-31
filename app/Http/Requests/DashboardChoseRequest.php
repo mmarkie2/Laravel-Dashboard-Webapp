@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 
-class DashboardRequest extends FormRequest
+class DashboardChoseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,15 @@ class DashboardRequest extends FormRequest
      */
     public function rules()
     {
-
-
+        $dashboards=DB::table('dashboards') ->where('user_id', '=',  \Auth::user()->id)->get();
+        $idsString="";
+        foreach ($dashboards as $value)
+        {
+            $idsString.= $value->id.'|';
+        }
+        $idsString=   substr($idsString, 0, -1);
         return [
-            "name" => 'string|min:1|max:50'
+            "dashboard_id" =>  ['required', 'regex:/('.$idsString.')/']
         ];
     }
 }

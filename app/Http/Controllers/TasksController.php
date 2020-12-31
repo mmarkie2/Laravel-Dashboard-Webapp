@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DashboardRequest;
-use App\Models\Dashboard;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class DashboardController extends Controller
+class TasksController extends Controller
 {
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -19,17 +13,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        if (\Auth::user()==null)
-        {
-            return view("home");
-        }
-        $user_id=DB::table('user_to_primary_dashboards') ->where('user_id', '=',  \Auth::user()->id)->get();
-      if(sizeof( $user_id)==1)
-      {
-          return $user_id[0]->dashboard_id;
-         // return view("dashboardChose", compact("dashboard"));
-      }
-
+        //
     }
 
     /**
@@ -39,9 +23,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        $dashboard=new Dashboard();
-        return view("dashboardForm" , compact("dashboard"));
-
+        //
     }
 
     /**
@@ -50,20 +32,9 @@ class DashboardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DashboardRequest $request)
+    public function store(Request $request)
     {
-        if (\Auth::user()==null)
-        {
-            return view("home");
-        }
-        $dashboard=new Dashboard();
-        $dashboard->user_id= \Auth::user()->id;
-        $dashboard->name=$request->name;
-        if ($dashboard->save())
-        {
-            return redirect()->route("dashboard");
-        }
-        return "error";
+        //
     }
 
     /**
