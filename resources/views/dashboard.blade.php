@@ -13,6 +13,7 @@
         <div class="rcorners">
            <div class="title">{{$task->title}}</div>
             <div class="contents">{{$task->contents}}</div>
+            <button class="butt">delete</button>
         </div>
 
 @endforeach

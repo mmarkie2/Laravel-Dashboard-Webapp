@@ -19,18 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b49417e-6589-47d2-8ad5-c34e06ca9b27" name="Default Changelist" comment="dashboard chose backend working">
-      <change afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/head.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/nav.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/taskForm.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TasksController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/DashboardRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/DashboardRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_29_145425_create_tasks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_29_145425_create_tasks_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboardForm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboardForm.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    <list default="true" id="4b49417e-6589-47d2-8ad5-c34e06ca9b27" name="Default Changelist" comment="frontend template and dashboard prototype added">
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +218,7 @@
       <workItem from="1609512976146" duration="2698000" />
       <workItem from="1609524878588" duration="2704000" />
       <workItem from="1609535306372" duration="4263000" />
-      <workItem from="1609585104581" duration="5989000" />
+      <workItem from="1609585104581" duration="6322000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1609276872522</created>
@@ -251,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609442823754</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="frontend template and dashboard prototype added">
+      <created>1609593897268</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1609593897268</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +270,8 @@
     <MESSAGE value="1" />
     <MESSAGE value="added dashboardChose to pick primary dashboard for user" />
     <MESSAGE value="dashboard chose backend working" />
-    <option name="LAST_COMMIT_MESSAGE" value="dashboard chose backend working" />
+    <MESSAGE value="frontend template and dashboard prototype added" />
+    <option name="LAST_COMMIT_MESSAGE" value="frontend template and dashboard prototype added" />
   </component>
   <component name="WindowStateProjectService">
     <state x="428" y="188" key="#Notifications" timestamp="1609276445508">
@@ -371,11 +369,11 @@
     </state>
     <state width="1637" height="290" key="GridCell.Tab.2.right/0.0.1366.728/1366.-292.1680.1010@1366.-292.1680.1010" timestamp="1609515677112" />
     <state width="1637" height="152" key="GridCell.Tab.2.right/0.0.1366.728@0.0.1366.728" timestamp="1609360778225" />
-    <state x="1704" y="-157" key="Vcs.Push.Dialog.v2" timestamp="1609442827134">
+    <state x="1704" y="-157" key="Vcs.Push.Dialog.v2" timestamp="1609593899618">
       <screen x="1366" y="-292" width="1680" height="1010" />
     </state>
     <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728/1366.-292.1680.1010@0.0.1366.728" timestamp="1609276876381" />
-    <state x="1704" y="-157" key="Vcs.Push.Dialog.v2/0.0.1366.728/1366.-292.1680.1010@1366.-292.1680.1010" timestamp="1609442827134" />
+    <state x="1704" y="-157" key="Vcs.Push.Dialog.v2/0.0.1366.728/1366.-292.1680.1010@1366.-292.1680.1010" timestamp="1609593899618" />
     <state x="2111" y="-52" key="com.intellij.tools.ToolSelectDialog.dimensionServiceKey" timestamp="1609415035227">
       <screen x="1366" y="-292" width="1680" height="1010" />
     </state>
