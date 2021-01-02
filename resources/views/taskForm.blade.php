@@ -48,14 +48,23 @@
     <div class="box box-primary ">
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form"  action="{{ route('dashboardStore') }}" id="task-form"
+        <form role="form"  action="{{ route('taskStore') }}" id="task-form"
               method="post" enctype="multipart/form-data" >
             {{ csrf_field() }}
             <div class="box">
                 <div class="box-body">
-                    <div class="form-group{{ $errors->has('message')?'has-error':'' }}" id="roles_box">
-                        <label><b>Name</b></label> <br>
-                        <textarea name="name" id="name" cols="20" rows="3" required></textarea>
+                    <div class="form-group{{ $errors->has('dashboard_id')?'has-error':'' }}" id="roles_box">
+                        <label><b>dashboard_id</b></label> <br>
+                        <textarea name="dashboard_id" id="dashboard_id" cols="20" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('title')?'has-error':'' }}" id="roles_box">
+                        <label><b>title</b></label> <br>
+                        <textarea name="title" id="title" cols="20" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group{{ $errors->has('contents')?'has-error':'' }}" id="roles_box">
+                        <label><b>contents</b></label> <br>
+                        <textarea name="contents" id="contents" cols="20" rows="3" required></textarea>
                     </div>
                 </div>
             </div>

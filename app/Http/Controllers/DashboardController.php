@@ -23,11 +23,13 @@ class DashboardController extends Controller
         {
             return view("home");
         }
-        $user_id=DB::table('user_to_primary_dashboards') ->where('user_id', '=',  \Auth::user()->id)->get();
-      if(sizeof( $user_id)==1)
+        $user_to_primary_dashboard=DB::table('user_to_primary_dashboards') ->where('user_id', '=',  \Auth::user()->id)->get();
+      if(sizeof( $user_to_primary_dashboard)==1)
       {
-          return $user_id[0]->dashboard_id;
-         // return view("dashboardChose", compact("dashboard"));
+        $dashboard_id=$user_to_primary_dashboard[0]->dashboard_id;
+        $dashboard=Dashboard::find($dashboard_id);
+          $tasks = DB::table('tasks')->where("dashboard_id","=",$dashboard_id)->get();
+          return view("dashboard", compact("tasks"));
       }
 
     }

@@ -16,11 +16,16 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger("dashboard_id")->unsigned();
+            $table->bigInteger("user_id")->unsigned()->nullable(false);
+            $table->foreign("user_id")->references("id")->on("users")
+                ->onUpdate("cascade")->onDelete("cascade");
+
+            $table->bigInteger("dashboard_id")->unsigned()->nullable(false);
             $table->foreign("dashboard_id")->references("id")->on("dashboards")
                 ->onUpdate("cascade")->onDelete("cascade");
-            $table->text("title");
-            $table->text("body");
+
+            $table->text("title")->nullable(false)->unique();
+            $table->text("contents");
 
             $table->timestamps();
         });

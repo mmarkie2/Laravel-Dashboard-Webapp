@@ -32,6 +32,11 @@ Route::get("/dashboard/chose","App\Http\Controllers\DashboardChoseController@ind
 Route::post("/dashboard/chose","App\Http\Controllers\DashboardChoseController@store")
     ->name('dashboardChoseStore');
 
+Route::get("/task/create","App\Http\Controllers\TaskController@create")
+    ->name('taskCreate');
+Route::post("/task/create","App\Http\Controllers\TaskController@store")
+    ->name('taskStore');
+
 
 Auth::routes();
 

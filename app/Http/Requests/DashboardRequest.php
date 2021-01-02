@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Dashboard;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,9 @@ class DashboardRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $dashboard_id = $this->input("dashboard_id");
+
+        return Dashboard::find($dashboard_id)->user_id == $this->user()->id;
     }
 
     /**
