@@ -39,40 +39,29 @@
         <h3>Chose dashboard:</h3>
     </div>
     @auth
-        <table data-toggle="table" id="dashboardsTable">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Użytkownik</th>
-                <th>Data dodania</th>
-                <th>Komentarz</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($dashboards as $dashboard)
-                <tr id={{$dashboard->id}}>
-                    <td>{{$dashboard->id}}</td>
-                    <td>{{$dashboard->user->name}}</td>
-                    <td>{{$dashboard->created_at}}</td>
-                    <td>{{$dashboard->name}}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-        <br>
+<div id="dashboards">
 
-        <form role="form"  action="{{ route('dashboardChoseStore') }}"
+            @foreach($dashboards as $dashboard)
+                <div  id="{{$dashboard->id}}"  class='btn btn-dark btn-lg btn-block'>
+                        {{$dashboard->name}}
+                </div>
+            @endforeach
+
+</div>
+        <a href="{{ route('dashboardCreate') }}" class="btn btn-success">add dashboard</a>
+        <form style="visibility:hidden" role="form"  action="{{ route('dashboardChoseStore') }}"
               method="post" enctype="multipart/form-data" >
             {{ csrf_field() }}
 
             <input type="number" id="dashboard_id"  name="dashboard_id">
-           <button type="submit">Utwórz</button>
+           <button id="dashboardChoseSubmit"  type="submit">send</button>
 
         </form>
  <script>
      $(document).ready(function() {
-         $('#dashboardsTable').find("tr").on("click", function () {
-
+         $('#dashboards').find("div").on("click", function () {
+             $('#dashboard_id').val(this.id);
+             $('#dashboardChoseSubmit').click();
          });
      });
  </script>

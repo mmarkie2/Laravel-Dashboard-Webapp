@@ -1,77 +1,110 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TAI | Komentarze</title>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+<html>
+
+@extends("layouts.head")
+
+</html>
+
+
+@section('main-content')
+
+    <section id="tasks">
+        <div class="table-container">
+            <div class="title"><h3></h3></div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <div class="box box-primary ">
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" action="{{ route('taskStore', $dashboard_id ) }}" id="task-form"
+                      method="post" enctype="multipart/form-data"   >
+                    {{ csrf_field() }}
+                    <div class="box">
+                        <div class="box-body" id="inputs">
+                            <div style="visibility:hidden; width:0; height:0" class="form-group{{ $errors->has('dashboard_id')?'has-error':'' }}" id="roles_box">
+                                <label><b>dashboard_id</b></label> <br>
+                                <textarea name="dashboard_id" id="dashboard_id" cols="20" rows="3"  required>
+                                    {{$dashboard_id}}
+                                </textarea>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('title')?'has-error':'' }}" id="roles_box">
+                                <label><b>title</b></label> <br>
+                                <textarea name="title" id="title" cols="40" rows="1" required></textarea>
+                            </div>
+                            <div class="form-group{{ $errors->has('severity')?'has-error':'' }}" id="roles_box">
+                                <label><b>severity(1 for most severe)</b></label> <br>
+                                <input type="number" name="severity" id="severity"  min="1" max="5"  required></input>
+                            </div>
+                            <div class="form-group{{ $errors->has('contents')?'has-error':'' }}" id="roles_box">
+                                <label><b>contents</b></label> <br>
+                                <textarea name="contents" id="contents" cols="40" rows="10" required></textarea>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success">Create</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
     <style>
-        body{
-            background-color: #e8e8e8;
-        }
-        .title{
-            text-align: center;
-            background-color: transparent
-        }
-        .table-container{
-            background-color: white;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .box {
+
+        form{
+            width: 100%;
+            height: 100%;
+
             display: flex;
             justify-content: center;
         }
-        .box-footer{
-            float: right;
+        #inputs {
+            margin: auto;
+            display: flex;
+            flex-direction: column;
         }
-    </style>
-</head>
-<body>
-<div class="table-container">
-    <div class="title"> <h3></h3> </div>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <div class="box box-primary ">
-        <!-- /.box-header -->
-        <!-- form start -->
-        <form role="form"  action="{{ route('taskStore') }}" id="task-form"
-              method="post" enctype="multipart/form-data" >
-            {{ csrf_field() }}
-            <div class="box">
-                <div class="box-body">
-                    <div class="form-group{{ $errors->has('dashboard_id')?'has-error':'' }}" id="roles_box">
-                        <label><b>dashboard_id</b></label> <br>
-                        <textarea name="dashboard_id" id="dashboard_id" cols="20" rows="3" required></textarea>
-                    </div>
 
-                    <div class="form-group{{ $errors->has('title')?'has-error':'' }}" id="roles_box">
-                        <label><b>title</b></label> <br>
-                        <textarea name="title" id="title" cols="20" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group{{ $errors->has('contents')?'has-error':'' }}" id="roles_box">
-                        <label><b>contents</b></label> <br>
-                        <textarea name="contents" id="contents" cols="20" rows="3" required></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer"><button type="submit" class="btn btn-success">Create</button>
-            </div>
-        </form>
-    </div>
-</div>
-</body>
-</html>
+        .rcorners {
+            border-radius: 25px;
+            border: 2px solid #060705;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            height: 300px;
+        }
+
+        .title {
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            font-size: 30px;
+            letter-spacing: 2px;
+            word-spacing: 2px;
+            color: #000000;
+            font-weight: normal;
+            text-decoration: none solid rgb(68, 68, 68);
+            font-style: italic;
+            font-variant: normal;
+            text-transform: none;
+        }
+
+        .contents {
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            font-size: 15px;
+            letter-spacing: 2px;
+            word-spacing: 2px;
+            color: #343232;
+            font-weight: normal;
+            text-decoration: none solid rgb(68, 68, 68);
+            font-style: italic;
+            font-variant: normal;
+            text-transform: none;
+        }
+
+    </style>
+@endsection('main-content')

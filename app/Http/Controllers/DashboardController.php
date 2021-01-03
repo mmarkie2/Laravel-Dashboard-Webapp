@@ -23,13 +23,18 @@ class DashboardController extends Controller
         {
             return view("home");
         }
+
         $user_to_primary_dashboard=DB::table('user_to_primary_dashboards') ->where('user_id', '=',  \Auth::user()->id)->get();
       if(sizeof( $user_to_primary_dashboard)==1)
       {
+          $isDashboard=true;
         $dashboard_id=$user_to_primary_dashboard[0]->dashboard_id;
         $dashboard=Dashboard::find($dashboard_id);
           $tasks = DB::table('tasks')->where("dashboard_id","=",$dashboard_id)->get();
-          return view("dashboard", compact("tasks"));
+          return view("dashboard", compact("tasks", "dashboard"));
+      }
+      else{
+          return view("dashboardChose");
       }
 
     }
@@ -63,7 +68,7 @@ class DashboardController extends Controller
         $dashboard->name=$request->name;
         if ($dashboard->save())
         {
-            return redirect()->route("dashboard");
+            return redirect()->route("dashboardChose");
         }
         return "error";
     }

@@ -24,7 +24,8 @@ class CreateTasksTable extends Migration
             $table->foreign("dashboard_id")->references("id")->on("dashboards")
                 ->onUpdate("cascade")->onDelete("cascade");
 
-            $table->text("title")->nullable(false)->unique();
+            $table->text("title")->nullable(false);
+            $table->integer("severity")->nullable(false);
             $table->text("contents");
 
             $table->timestamps();

@@ -29,7 +29,8 @@ class TaskRequest extends FormRequest
         return [
             "dashboard_id"=>"integer",
             "title" => 'string|min:1|max:50',
-            "contents" => 'string|min:1|max:50'
+            "severity"=>"integer",
+            "contents" => 'string|min:0|max:500'
         ];
     }
 }

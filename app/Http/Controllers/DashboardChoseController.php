@@ -8,7 +8,7 @@ use App\Models\Dashboard;
 use App\Models\UserToPrimaryDashboard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Redirect;
 class DashboardChoseController extends Controller
 {
     /**
@@ -109,7 +109,8 @@ class DashboardChoseController extends Controller
             $userToPrimaryDashboard->dashboard_id=$request->dashboard_id;
             if ($userToPrimaryDashboard->save())
             {
-                return redirect()->route("dashboard");
+
+                return redirect()->route("dashboardChose");
             }
             else{
                 return "error";

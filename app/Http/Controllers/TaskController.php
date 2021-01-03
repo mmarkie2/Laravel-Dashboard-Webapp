@@ -26,10 +26,10 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($dashboard_id)
     {
-        $task=new Task();
-        return view("taskForm" , compact("task"));
+
+        return view("taskForm" , compact("dashboard_id" ));
     }
 
     /**
@@ -49,6 +49,7 @@ class TaskController extends Controller
             $task->user_id= \Auth::user()->id;
             $task->dashboard_id=$request->dashboard_id;
             $task->title=$request->title;
+        $task->severity=$request->severity;
             $task->contents=$request->contents;
 
             if ($task->save())
@@ -81,7 +82,13 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::find(intval($id));
+
+        if (\Auth::user()->id != $task->user_id) {
+            return back()->with(['success' => false, 'message_type' => 'danger',
+                'message' => 'You are not authorized.']);
+        }
+        return view('taskEditForm', compact('task'));
     }
 
     /**
@@ -93,7 +100,19 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::find(intval($id));
+
+        if (\Auth::user()->id != $task->user_id)
+        {
+            return back()->with(['success' => false, 'message_type' => 'danger',
+                'message' => 'You are not authorized.']);
+        }
+        $task->title=$request->title;
+        $task->contents=$request->contents;
+        if($task->save()) {
+            return redirect()->route('dashboard');
+        }
+        return "Error.";
     }
 
     /**
@@ -104,6 +123,20 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find(intval($id));
+        //Sprawdzenie czy użytkownik jest autorem komentarza
+        if(\Auth::user()->id != $task->user_id)
+        {
+            return back()->with(['success' => false, 'message_type' => 'danger',
+                'message' => 'Nie posiadasz uprawnień do przeprowadzenia tej operacji.']);
+        }
+        if($task->delete()){
+            return redirect()->route('dashboard')->with(['success' => true,
+                'message_type' => 'success',
+                'message' => 'Pomyślnie skasowano']);
+        }
+        return back()->with(['success' => false, 'message_type' => 'danger',
+            'message' => 'Wystąpił błąd podczas kasowania']);
+
     }
 }

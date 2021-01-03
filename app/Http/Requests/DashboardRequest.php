@@ -15,9 +15,9 @@ class DashboardRequest extends FormRequest
      */
     public function authorize()
     {
-        $dashboard_id = $this->input("dashboard_id");
 
-        return Dashboard::find($dashboard_id)->user_id == $this->user()->id;
+
+        return true;
     }
 
     /**
