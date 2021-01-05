@@ -1,9 +1,10 @@
-<html>
 
 @extends("layouts.head")
 
-</html>
 
+@section('style')
+
+@endsection
 
 @section('main-content')
 
@@ -48,7 +49,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success">Create</button>
+                            <button type="submit" class="btn btn-success" id="createTask">Create</button>
                         </div>
                     </div>
 

@@ -34,7 +34,7 @@ class DashboardController extends Controller
           return view("dashboard", compact("tasks", "dashboard"));
       }
       else{
-          return view("dashboardChose");
+          return redirect()->route("dashboardChose");
       }
 
     }

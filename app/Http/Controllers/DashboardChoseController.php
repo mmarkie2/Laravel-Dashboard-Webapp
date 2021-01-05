@@ -18,6 +18,7 @@ class DashboardChoseController extends Controller
      */
     public function index()
     {
+
         $dashboards=Dashboard::orderBy("created_at","asc")->get();
         return view("dashboardChose", compact("dashboards"));
     }
@@ -45,27 +46,9 @@ class DashboardChoseController extends Controller
         {
             return view("home");
         }
-        $querry=DB::table('user_to_primary_dashboards')
-            ->where('user_id', '=',  \Auth::user()->id)->get();
-        if( $querry->isEmpty())
-        {
-            $userToPrimaryDashboard=new UserToPrimaryDashboard();
-            $userToPrimaryDashboard->user_id= \Auth::user()->id;
-            $userToPrimaryDashboard->dashboard_id=$request->dashboard_id;
-            if ($userToPrimaryDashboard->save())
-            {
-                return redirect()->route("dashboard");
-            }
-            else{
-                return "error";
-            }
-        }
-        else
-        {
-           $id= $querry[0]->id;
-          $this-> update($request,$id);
-        }
 
+        UserToPrimaryDashboard::updateOrCreate(['user_id'=>\Auth::user()->id],['dashboard_id'=>$request->dashboard_id]);
+        return redirect()->route("dashboard");
 
     }
 
@@ -102,25 +85,7 @@ class DashboardChoseController extends Controller
      */
     public function update(DashboardChoseRequest $request, $id)
     {
-        $userToPrimaryDashboard= UserToPrimaryDashboard::find($id);
-        if(   $userToPrimaryDashboard->user_id== \Auth::user()->id )
 
-        {
-            $userToPrimaryDashboard->dashboard_id=$request->dashboard_id;
-            if ($userToPrimaryDashboard->save())
-            {
-
-                return redirect()->route("dashboardChose");
-            }
-            else{
-                return "error";
-            }
-
-        }
-        else{
-            return back()->with(['success' => false, 'message_type' => 'danger',
-                'message' => 'You are not authorized.']);
-        }
     }
 
     /**

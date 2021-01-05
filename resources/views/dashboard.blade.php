@@ -6,6 +6,7 @@
         #tasks
         {
             display: flex;
+        flex-wrap:wrap;
         }
 
         .rcorners {
@@ -13,8 +14,8 @@
             border: 2px solid #060705;
             padding: 20px;
             margin:10px;
-            width: 200px;
-            height: 300px;
+            width: 400px;
+
         }
         .title
         {
@@ -28,6 +29,7 @@
             font-style: italic;
             font-variant: normal;
             text-transform: none;
+        overflow-wrap: break-word;
         }
         .contents
         {
@@ -41,17 +43,21 @@
             font-style: italic;
             font-variant: normal;
             text-transform: none;
+        overflow-wrap: break-word;
         }
-
+        textarea {
+        resize: none;
+        }
 
 
 @endsection("style")
 
 
 @section('main-content')
+    @auth
     <div style="font-size:20px; display:flex;flex-direction: row">
         <div  >{{$dashboard->name}}</div>
-        <a href="{{ route('taskCreate', $dashboard->id) }}" class="btn btn-success">add task</a>
+        <a href="{{ route('taskCreate', $dashboard->id) }}" class="btn btn-success" id="addTask">add task</a>
 
     </div>
 
@@ -59,13 +65,18 @@
 @foreach($tasks as $task)
 
         <div class="rcorners">
-           <div class="title">{{$task->title}}</div>
+           <div  class="title">{{$task->title}}</div>
             <div class="contents">{{$task->contents}}</div>
             <a href="{{ route('taskEdit', $task->id) }}" class="btn btn-primary">edit</a>
-            <a href="{{ route('taskDestroy', $task->id) }}" class="btn btn-danger">delete</a>
+            <a href="{{ route('taskDestroy', $task->id) }}" class="btn btn-danger" >delete</a>
         </div>
 
 @endforeach
     </div>
-
+    @endauth
+    @guest
+        <div class="table-container">
+            <b>Please login to use all features.</b>
+        </div>
+    @endguest
 @endsection('main-content')
