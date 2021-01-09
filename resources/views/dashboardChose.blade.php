@@ -3,13 +3,13 @@
 @extends("layouts.head")
 
 @section("style")
-
+<style>
 #dashboards
     {
 width:50%;
 margin:auto;
     }
-
+</style>
 @endsection("style")
 
 

@@ -3,6 +3,7 @@
 @extends("layouts.head")
 
 @section("style")
+    <style>
         #tasks
         {
             display: flex;
@@ -48,7 +49,7 @@
         textarea {
         resize: none;
         }
-
+    </style>
 
 @endsection("style")
 
@@ -56,9 +57,9 @@
 @section('main-content')
     @auth
     <div style="font-size:20px; display:flex;flex-direction: row">
-        <div  >{{$dashboard->name}}</div>
-        <a href="{{ route('taskCreate', $dashboard->id) }}" class="btn btn-success" id="addTask">add task</a>
-
+        <div  style="padding-right:20px;padding-left:20px; ">{{$dashboard->name}}</div>
+        <a href="{{ route('taskCreate', $dashboard->id) }}" class="btn btn-success" id="addTask"  style="padding-right:20px;padding-left:20px; ">add task</a>
+        <a href="{{ route('dashboardDestroy', $dashboard->id) }}" class="btn btn-danger" id="addTask"  style="padding-right:20px;padding-left:20px; ">delete dashboard</a>
     </div>
 
     <div id="tasks" >

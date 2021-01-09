@@ -22,7 +22,7 @@ Route::get("/dashboard/create","App\Http\Controllers\DashboardController@create"
 Route::post("/dashboard/create","App\Http\Controllers\DashboardController@store")
     ->name('dashboardStore');
 Route::get("/dashboard","App\Http\Controllers\DashboardController@index")->name('dashboard');
-
+Route::get('/dashboard/delete/{id}', 'App\Http\Controllers\DashboardController@destroy')->name('dashboardDestroy');
 
 
 
@@ -43,6 +43,6 @@ Route::put('/task/{id}', 'App\Http\Controllers\TaskController@update')->name('ta
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home',  "App\Http\Controllers\DashboardController@index");
 
-Route::redirect('/here', '/dashboard')->name('here');;
+

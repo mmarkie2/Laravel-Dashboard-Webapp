@@ -83,12 +83,15 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::find(intval($id));
-
+//Checking if current user is an owner
         if (\Auth::user()->id != $task->user_id) {
             return back()->with(['success' => false, 'message_type' => 'danger',
                 'message' => 'You are not authorized.']);
         }
-        return view('taskEditForm', compact('task'));
+
+        $dashboard_id=$task->dashboard_id;
+        //returning view with current values to edit
+        return view('taskFormEdit', compact('task','dashboard_id'));
     }
 
     /**
@@ -101,12 +104,13 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         $task = Task::find(intval($id));
-
+        //Checking if current user is an owner
         if (\Auth::user()->id != $task->user_id)
         {
             return back()->with(['success' => false, 'message_type' => 'danger',
                 'message' => 'You are not authorized.']);
         }
+        //assigning values from request
         $task->title=$request->title;
         $task->contents=$request->contents;
         if($task->save()) {
@@ -124,19 +128,19 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $task = Task::find(intval($id));
-        //Sprawdzenie czy użytkownik jest autorem komentarza
+        //Checking if current user is an owner
         if(\Auth::user()->id != $task->user_id)
         {
             return back()->with(['success' => false, 'message_type' => 'danger',
-                'message' => 'Nie posiadasz uprawnień do przeprowadzenia tej operacji.']);
+                'message' => 'You are not authorized.']);
         }
         if($task->delete()){
             return redirect()->route('dashboard')->with(['success' => true,
                 'message_type' => 'success',
-                'message' => 'Pomyślnie skasowano']);
+                'message' => 'Successful.']);
         }
         return back()->with(['success' => false, 'message_type' => 'danger',
-            'message' => 'Wystąpił błąd podczas kasowania']);
+            'message' => 'Error']);
 
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DashboardChoseRequest;
 use App\Http\Requests\DashboardRequest;
 use App\Models\Dashboard;
+use App\Models\Task;
 use App\Models\UserToPrimaryDashboard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -96,6 +97,21 @@ class DashboardChoseController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+
+        $userToPrimaryDashboard = UserToPrimaryDashboard::find(intval($id));
+        //Checking if current user is an owner
+        if(\Auth::user()->id != $userToPrimaryDashboard->user_id)
+        {
+            return back()->with(['success' => false, 'message_type' => 'danger',
+                'message' => 'You are not authorized.']);
+        }
+        if($userToPrimaryDashboard->delete()){
+            return redirect()->route('dashboard')->with(['success' => true,
+                'message_type' => 'success',
+                'message' => 'Successful.']);
+        }
+        return back()->with(['success' => false, 'message_type' => 'danger',
+            'message' => 'Error']);
     }
 }
