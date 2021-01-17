@@ -19,11 +19,11 @@ Route::get('/', "App\Http\Controllers\DashboardController@index") ;;
 
 Route::get("/dashboard/create","App\Http\Controllers\DashboardController@create")
     ->name('dashboardCreate');
-Route::post("/dashboard/create","App\Http\Controllers\DashboardController@store")
-    ->name('dashboardStore');
+Route::post("/dashboard/create","App\Http\Controllers\DashboardController@store")->name('dashboardStore');
 Route::get("/dashboard","App\Http\Controllers\DashboardController@index")->name('dashboard');
 Route::get('/dashboard/delete/{id}', 'App\Http\Controllers\DashboardController@destroy')->name('dashboardDestroy');
-
+Route::get('/dashboard/edit/{id}', 'App\Http\Controllers\DashboardController@edit')->name('dashboardEdit');
+Route::put('/dashboard/{id}', 'App\Http\Controllers\DashboardController@update')->name('dashboardUpdate');
 
 
 

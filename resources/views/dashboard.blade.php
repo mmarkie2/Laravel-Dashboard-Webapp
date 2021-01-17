@@ -49,6 +49,12 @@
         textarea {
         resize: none;
         }
+
+#dashboardMenu a,div
+{
+    margin-right:10px;margin-left:10px;
+
+}
     </style>
 
 @endsection("style")
@@ -56,10 +62,11 @@
 
 @section('main-content')
     @auth
-    <div style="font-size:20px; display:flex;flex-direction: row">
-        <div  style="padding-right:20px;padding-left:20px; ">{{$dashboard->name}}</div>
-        <a href="{{ route('taskCreate', $dashboard->id) }}" class="btn btn-success" id="addTask"  style="padding-right:20px;padding-left:20px; ">add task</a>
-        <a href="{{ route('dashboardDestroy', $dashboard->id) }}" class="btn btn-danger" id="addTask"  style="padding-right:20px;padding-left:20px; ">delete dashboard</a>
+    <div id="dashboardMenu" style="font-size:20px; display:flex;flex-direction: row">
+        <div >{{$dashboard->name}}</div>
+        <a href="{{ route('taskCreate', $dashboard->id) }}" class="btn btn-success" id="addTask"  >add task</a>
+        <a href="{{ route('dashboardEdit', $dashboard->id) }}" class="btn btn-primary" id="editDashboard"  >edit dashboard</a>
+        <a href="{{ route('dashboardDestroy', $dashboard->id) }}" class="btn btn-danger" id="deleteDashboard"  >delete dashboard</a>
     </div>
 
     <div id="tasks" >

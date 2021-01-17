@@ -20,6 +20,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        //checking if user is logged in
         if (\Auth::user()==null)
         {
             return view("dashboard");
@@ -47,6 +48,11 @@ class DashboardController extends Controller
      */
     public function create()
     {
+        //checking if user is logged in
+        if (\Auth::user()==null)
+        {
+            return view("dashboard");
+        }
         $dashboard=new Dashboard();
         return view("dashboardForm" , compact("dashboard"));
 
@@ -60,9 +66,10 @@ class DashboardController extends Controller
      */
     public function store(DashboardRequest $request)
     {
+        //checking if user is logged in
         if (\Auth::user()==null)
         {
-            return view("home");
+            return view("dashboard");
         }
         $dashboard=new Dashboard();
         $dashboard->user_id= \Auth::user()->id;
@@ -93,7 +100,12 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-        $dashboard = Task::find(intval($id));
+        //checking if user is logged in
+        if (\Auth::user()==null)
+        {
+            return view("dashboard");
+        }
+        $dashboard = Dashboard::find(intval($id));
 //Checking if current user is an owner
         if (\Auth::user()->id != $dashboard->user_id) {
             return back()->with(['success' => false, 'message_type' => 'danger',
@@ -121,8 +133,8 @@ class DashboardController extends Controller
                 'message' => 'You are not authorized.']);
         }
         //assigning values from request
-        $dashboard->title=$request->title;
-        $dashboard->contents=$request->contents;
+        $dashboard->name=$request->name;
+
         if($dashboard->save()) {
             return redirect()->route('dashboard');
         }

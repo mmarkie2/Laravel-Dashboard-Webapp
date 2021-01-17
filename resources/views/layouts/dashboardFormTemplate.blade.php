@@ -40,14 +40,15 @@
         <div class="box box-primary ">
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form"  action="{{ route('dashboardStore') }}" id="task-form"
+            <form role="form"  @yield("action") id="task-form"
                   method="post" enctype="multipart/form-data" >
                 {{ csrf_field() }}
+                @yield("put_section")
                 <div class="box">
                     <div class="box-body">
                         <div class="form-group{{ $errors->has('message')?'has-error':'' }}" id="roles_box">
                             <label><b>Name</b></label> <br>
-                            <textarea name="name" id="name" cols="20" rows="3" required></textarea>
+                            <textarea name="name" id="name" cols="20" rows="3" required>@yield("name_text")</textarea>
                         </div>
                     </div>
                 </div>
